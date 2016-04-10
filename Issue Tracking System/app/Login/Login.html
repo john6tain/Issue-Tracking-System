@@ -1,1 +1,7 @@
-<p>Login.</p>
+<form name="LoginForm">
+    <label for="username"></label>
+    <input type="text" id="username" ng-model='user.name'>
+    <label for="password"></label>
+    <input type="password" id="password"  ng-model='user.password'>
+    <button ng-click='Login(user)'>Login</button>
+</form>

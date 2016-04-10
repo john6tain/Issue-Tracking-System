@@ -9,6 +9,9 @@ angular.module('issueTrackingSystem.login', ['ngRoute'])
   });
 }])
 
-.controller('LoginCtrl', [function() {
+.controller('LoginCtrl', ['$scope',function($scope) {
 
+  $scope.Login = function (user) {
+    console.log(user);
+  }
 }]);
