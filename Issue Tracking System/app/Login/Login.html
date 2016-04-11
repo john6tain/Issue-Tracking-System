@@ -1,7 +1,8 @@
-<form name="LoginForm">
-    <label for="username"></label>
-    <input type="text" id="username" ng-model='user.name'>
-    <label for="password"></label>
-    <input type="password" id="password"  ng-model='user.password'>
-    <button ng-click='Login(user)'>Login</button>
+<form name="LoginForm" >
+    <label for="username">Username</label>
+    <input type="text" id="username" ng-model='user.name' class="form-control">
+    <label for="password">Password</label>
+    <input type="password" id="password"  ng-model='user.password' class="form-control">
+    </br>
+    <button ng-click='Login(user)' class="btn btn-default">Login</button>
 </form>
