@@ -9,6 +9,8 @@ angular.module('issueTrackingSystem.register', ['ngRoute'])
   });
 }])
 
-.controller('RegisterCtrl', [function() {
-
+.controller('RegisterCtrl', ['$scope',function($scope) {
+  $scope.Register = function (user) {
+    alert(user.name + 'hi');
+  }
 }]);

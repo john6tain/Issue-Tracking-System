@@ -1,2 +1,8 @@
-<p>Register</p>
-
+<form name="RegisterForm" >
+    <label for="username">Username</label>
+    <input type="text" id="username" ng-model='user.name' class="form-control">
+    <label for="password">Password</label>
+    <input type="password" id="password"  ng-model='user.password' class="form-control">
+    </br>
+    <button ng-click='Register(user)' class="btn btn-default">Register</button>
+</form>
