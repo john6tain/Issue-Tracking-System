@@ -4,8 +4,8 @@
 angular.module('issueTrackingSystem', [
   'ngRoute',
   'issueTrackingSystem.login',
-  'issueTrackingSystem.register',
+  'issueTrackingSystem.register'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
-}]);
+}]).constant('BASE_URL','http://softuni-issue-tracker.azurewebsites.net/');
