@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.register', ['ngRoute','issueTrackingSystem.authentication'])
+angular.module('issueTrackingSystem.register', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/register', {
@@ -9,10 +9,10 @@ angular.module('issueTrackingSystem.register', ['ngRoute','issueTrackingSystem.a
         });
     }])
 
-    .controller('RegisterCtrl', ['$scope', 'authentication', function ($scope, authentication) {
+    .controller('RegisterCtrl', ['$scope' , function ($scope) {
+        $scope.success = true;
         $scope.Register = function (user) {
-            authentication.registerUser(user).then(function (registered) {
-                console.log(registered);
-            });
+           console.log(user);
+            $scope.success = false;
         }
     }]);
