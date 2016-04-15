@@ -1,8 +1,9 @@
 angular.module('issueTrackingSystem.authentication', [])
     .factory('authentication',[
         '$http',
+        '$window',
             'BASE_URL',
-            function ($http, BASE_URL) {
+            function ($http,$window,BASE_URL) {
 
                 function registerUser(user) {
                     var request = {
@@ -33,16 +34,20 @@ angular.module('issueTrackingSystem.authentication', [])
                     return $http(request)
                         .then(function (response) {
 
-                           /* if(response.statusText === "OK"){
-                                console.log('yes');
-                            }*/
+                            if(response.statusText === "OK"){
+                                $window.localStorage.setItem('access_token',response.data.access_token);
+                            }
+                            else
+                            {
+
+                            }
                         }, function (error) {
                             console.log(error);
                         });
                 }
 
-                function logOutUser(user) {
-
+                function logOutUser() {
+                $window.localStorage.clear();
                 }
 
                 return {
