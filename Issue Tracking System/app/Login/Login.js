@@ -9,12 +9,10 @@ angular.module('issueTrackingSystem.login', ['ngRoute'])
   });
 }])
 
-.controller('LoginCtrl', ['$scope',function($scope) {
-  $scope.success = true;
-
+.controller('LoginCtrl', ['$scope','authentication','$location',function($scope,authentication,$location) {
   $scope.Login = function (user) {
-   /* authentication.loginUser(user).then(function (loggedIn) {
-      console.log(loggedIn);
-    });*/
+    authentication.loginUser(user).then(function (loggedIn) {
+      $location.path('/register')
+    });
   }
 }]);

@@ -1,30 +1,44 @@
 angular.module('issueTrackingSystem.authentication', [])
-    .factory('authentication'[
+    .factory('authentication',[
         '$http',
-            '$q',
             'BASE_URL',
-            function ($http, $q, BASE_URL) {
+            function ($http, BASE_URL) {
 
                 function registerUser(user) {
-                    var deferred = $q.defer();
-                    $http.post(BASE_URL + 'api/Account/Register', user)
-                        .then(function (response) {
-                            deferred.resolve(response);
-                        }, function (error) {
+                    var request = {
+                        method:'POST',
+                        url: BASE_URL + 'api/Account/Register',
+                        data: user
+                    };
 
+                    return $http(request)
+                        .then(function (response) {
+                            console.log(response);
+                        }, function (error) {
+                            console.log(error);
                         });
-                    return deferred.promise;
                 }
 
                 function loginUser(user) {
-                    var deferred = $q.defer();
-                    $http.post(BASE_URL + 'api/Account/Login', user)
-                        .then(function (response) {
-                            deferred.resolve(response.data);
-                    }, function () {
+                    user.grant_type = 'password';
+                    var request = {
+                        method:'POST',
+                        url: BASE_URL + 'api/Token',
+                        data: 'grant_type=' + user.grant_type
+                        + '&username=' + user.email
+                        + '&password=' + user.password,
+                        headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                    };
 
-                    });
-                    return deferred.promise;
+                    return $http(request)
+                        .then(function (response) {
+
+                           /* if(response.statusText === "OK"){
+                                console.log('yes');
+                            }*/
+                        }, function (error) {
+                            console.log(error);
+                        });
                 }
 
                 function logOutUser(user) {
@@ -32,8 +46,8 @@ angular.module('issueTrackingSystem.authentication', [])
                 }
 
                 return {
-                    registerUser: registerUser(),
-                    loginUser: loginUser(),
-                    logOutUser: logOutUser()
+                    registerUser: registerUser,
+                    loginUser: loginUser,
+                    logOutUser: logOutUser
                 }
             }]);
