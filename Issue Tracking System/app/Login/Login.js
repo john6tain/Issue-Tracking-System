@@ -12,7 +12,8 @@ angular.module('issueTrackingSystem.login', ['ngRoute'])
 .controller('LoginCtrl', ['$scope','authentication','$location',function($scope,authentication,$location) {
   $scope.Login = function (user) {
     authentication.loginUser(user).then(function (loggedIn) {
-      $location.path('/home')
+      $location.path('/dashboard');
     });
+
   }
 }]);

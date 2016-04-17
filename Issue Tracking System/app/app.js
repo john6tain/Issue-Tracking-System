@@ -6,7 +6,8 @@ angular.module('issueTrackingSystem', [
   'issueTrackingSystem.login',
   'issueTrackingSystem.register',
   'issueTrackingSystem.authentication',
-  'issueTrackingSystem.success'
+  'issueTrackingSystem.success',
+  'issueTrackingSystem.dashboard'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});

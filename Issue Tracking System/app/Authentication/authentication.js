@@ -39,7 +39,7 @@ angular.module('issueTrackingSystem.authentication', [])
                             }
                             else
                             {
-
+                                console.log('Login Failed');
                             }
                         }, function (error) {
                             console.log(error);
