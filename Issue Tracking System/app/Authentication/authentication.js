@@ -35,6 +35,7 @@ angular.module('issueTrackingSystem.authentication', [])
                         .then(function (response) {
 
                             if(response.statusText === "OK"){
+                                
                                 $window.localStorage.setItem('access_token',response.data.access_token);
                             }
                             else

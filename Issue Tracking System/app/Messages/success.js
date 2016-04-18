@@ -2,8 +2,7 @@
 angular.module('issueTrackingSystem.success',[])
     .directive('success',function () {
         return {
-            restrict:'AE',
-            replace: 'true',
+            restrict:'A',
             templateUrl:'app/Messages/success.html'
         };
     });
