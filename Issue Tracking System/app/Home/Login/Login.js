@@ -16,13 +16,15 @@ angular.module('issueTrackingSystem.login', ['ngRoute'])
             authentication.loginUser(user).then(function (loggedIn) {
                 if ($window.localStorage.getItem('access_token')) {
                     console.log('full');
+                    $('a[href$="#/login"]').text('Dashboard').attr('href', '#/dashboard');
+                    $('a[href$="#/register"]').text('Projects').attr('href', '#/projects');
                     $location.path('/dashboard');
+
                 }
                 else {
                     console.log('empty');
                 }
             });
-
 
 
         };

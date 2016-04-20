@@ -9,11 +9,11 @@ angular.module('issueTrackingSystem.register', ['ngRoute'])
         });
     }])
 
-    .controller('RegisterCtrl', ['$scope' ,'authentication', function ($scope,authentication) {
-        
-        $scope.Register = function (user) {
-            authentication.registerUser(user).then(function (message) {
-                console.log(message);
-            })
-        }
-    }]);
+    .controller('RegisterCtrl', ['$scope', 'authentication',
+        function ($scope, authentication) {
+            $scope.Register = function (user) {
+                authentication.registerUser(user).then(function (message) {
+                    console.log(message);
+                })
+            }
+        }]);
