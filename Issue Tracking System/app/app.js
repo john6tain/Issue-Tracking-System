@@ -10,7 +10,9 @@ angular.module('issueTrackingSystem', [
   'issueTrackingSystem.dashboard',
   'issueTrackingSystem.projects',
   'issueTrackingSystem.logout'
-]).
-config(['$routeProvider', function($routeProvider) {
+])
+    .config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
-}]).constant('BASE_URL','http://softuni-issue-tracker.azurewebsites.net/');
+}])
+    .constant('BASE_URL','http://softuni-issue-tracker.azurewebsites.net/')
+.constant('toastr', toastr);
