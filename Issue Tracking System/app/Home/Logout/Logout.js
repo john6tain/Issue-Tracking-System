@@ -12,6 +12,7 @@ angular.module('issueTrackingSystem.logout', ['ngRoute'])
         function ($scope, authentication,$location) {
             $scope.Logout = function () {
                 toastr.error('no','noway');
-                authentication.logOutUser();//not working properly
+                authentication.logOutUser();
+                
             }
         }]);

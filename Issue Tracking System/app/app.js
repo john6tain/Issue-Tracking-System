@@ -2,17 +2,23 @@
 
 // Declare app level module which depends on views, and components
 angular.module('issueTrackingSystem', [
-  'ngRoute',
-  'issueTrackingSystem.login',
-  'issueTrackingSystem.register',
-  'issueTrackingSystem.authentication',
-  'issueTrackingSystem.success',
-  'issueTrackingSystem.dashboard',
-  'issueTrackingSystem.projects',
-  'issueTrackingSystem.logout'
-])
-    .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/login'});
-}])
-    .constant('BASE_URL','http://softuni-issue-tracker.azurewebsites.net/')
-.constant('toastr', toastr);
+        'ngRoute',
+        'issueTrackingSystem.home',
+        'issueTrackingSystem.authentication',
+        'issueTrackingSystem.dashboard',
+        'issueTrackingSystem.navigationBar',
+        'issueTrackingSystem.projects',
+        'issueTrackingSystem.logout'
+    ])
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.otherwise({redirectTo: '/'});
+
+    }])
+    .run(['$rootScope','$location',function ($rootScope,$location) {
+        $rootScope.$on('$routeChangeError', function (ev,current,previous,rejection) {
+            toastr.error('please login first',rejection);
+            $location.path('/');
+        });
+    }])
+    .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/')
+    .constant('toastr', toastr);

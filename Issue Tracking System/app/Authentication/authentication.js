@@ -2,8 +2,10 @@ angular.module('issueTrackingSystem.authentication', [])
     .factory('authentication',[
         '$http',
         '$window',
+        '$location',
             'BASE_URL',
-            function ($http,$window,BASE_URL) {
+
+            function ($http,$window,$location,BASE_URL) {
 
                 function registerUser(user) {
                     var request = {
@@ -49,6 +51,7 @@ angular.module('issueTrackingSystem.authentication', [])
 
                 function logOutUser() {
                 $window.localStorage.clear();
+                    $location.path('/');
                 }
 
                 return {

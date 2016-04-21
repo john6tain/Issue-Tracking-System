@@ -21,7 +21,6 @@
     <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-<div success ng-show="isSuccess"></div>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -33,24 +32,17 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Issue Tracking System</a>
+            <div nav-bar class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ></div>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" id="nav">
-                <li class="active"><a href="#/login" >Login <span class="sr-only">(current)</span></a></li>
-                <li><a href="#/register">Register</a></li>
-                <li><a href="#/logout" ng-controller="LogoutCtrl" ng-click="Logout()">Logout</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
-    </div>
-</nav>
 
-<div ng-view></div>
+      </div>
+  </nav>
 
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
--->
+  <div ng-view></div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
 
 <script src="app/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="app/bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -58,10 +50,9 @@
 <script src="app/bower_components/angular-route/angular-route.js"></script>
 <script src="app/bower_components/toastr/toastr.js"></script>
 <script src="app/app.js"></script>
-<script src="app/Home/Login/Login.js"></script>
-<script src="app/Home/Register/Register.js"></script>
+<script src="app/Home/home-controller.js/"></script>
 <script src="app/Authentication/authentication.js"></script>
-<script src="app/Messages/success.js"></script>
+<script src="app/directives/navigationBar.js"></script>
 <script src="app/Dashboard/Dashboard.js"></script>
 <script src="app/Project/Projects.js"></script>
 <script src="app/Home/Logout/Logout.js"></script>

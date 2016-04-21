@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-3 col-md-offset-1">
+        <form name="LoginForm">
+            <label for="email">Email</label>
+            <input type="text" id="email" ng-model='user.email' class="form-control">
+            <label for="password">Password</label>
+            <input type="password" id="password" ng-model='user.password' class="form-control">
+            </br>
+            <button ng-click='Login(user)' class="btn btn-default">Login</button>
+        </form>
+    </div>
+    <div class="col-md-3 col-md-offset-2">
+        <form name="RegisterForm">
+            <label for="reg-email">Email</label>
+            <input type="text" id="reg-email" ng-model='user.email' class="form-control">
+            <label for="reg-password">Password</label>
+            <input type="password" id="reg-password" ng-model='user.password' class="form-control">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" ng-model='user.confirmPassword' class="form-control">
+            </br>
+            <button ng-click='Register(user)' class="btn btn-default">Register</button>
+        </form>
+    </div>
+</div>
