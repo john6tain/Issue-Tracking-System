@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">Issue Tracking System</a>
-            <div nav-bar class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ></div>
+            <div ng-if="isLogged"nav-bar class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ></div>
         </div>
 
       </div>
@@ -50,11 +50,12 @@
 <script src="app/bower_components/angular-route/angular-route.js"></script>
 <script src="app/bower_components/toastr/toastr.js"></script>
 <script src="app/app.js"></script>
+<script src="app/Home/Logout/Logout.js"></script>
 <script src="app/Home/home-controller.js/"></script>
 <script src="app/Authentication/authentication.js"></script>
 <script src="app/directives/navigationBar.js"></script>
 <script src="app/Dashboard/Dashboard.js"></script>
 <script src="app/Project/Projects.js"></script>
-<script src="app/Home/Logout/Logout.js"></script>
 </body>
 </html>
+

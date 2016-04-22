@@ -10,7 +10,7 @@ angular.module('issueTrackingSystem.dashboard', ['ngRoute'])
                 }
                 return $q.reject('You are not logged in');
             }]
-        }
+        };
 
         $routeProvider.when('/dashboard', {
             templateUrl: 'app/Dashboard/Dashboard.html',
@@ -19,8 +19,11 @@ angular.module('issueTrackingSystem.dashboard', ['ngRoute'])
         });
     }])
 
-    .controller('DashboardCtrl', ['$scope', function ($scope) {
-        $scope.test = function () {
-            alert('da');
+    .controller('DashboardCtrl', ['$scope','$window','$http','BASE_URL', function ($scope,$window,$http,BASE_URL) {
+        $scope.BigFoot = function () {
+            $http.defaults.headers.common.Authorization = 'Bearer '+ $window.localStorage.getItem('access_token');
+            $http.get(BASE_URL+'Issues/2').then(function (feed) {
+                console.log(feed);
+            });
         }
     }]);

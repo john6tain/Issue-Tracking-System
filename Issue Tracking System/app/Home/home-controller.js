@@ -9,24 +9,22 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
         });
     }])
 
-    .controller('HomeCtrl', ['$scope', '$location','$window', 'authentication',
-        function ($scope, $location,$window, authentication) {
-             $scope.Register = function (user) {
-               authentication.registerUser(user).then(function (message) {
-                   
+    .controller('HomeCtrl', ['$scope', '$rootScope', '$location', '$window', 'authentication',
+        function ($scope, $rootScope, $location, $window, authentication) {
+
+            $scope.Register = function (user) {
+                authentication.registerUser(user).then(function (message) {
+                    console.log(message);
                 });
-             };
-                $scope.Login = function (user) {
-                    authentication.loginUser(user).then(function (loggedIn) {
-                            if ($window.localStorage.getItem('access_token')) {
-                                console.log('full');
-                                $location.path('/dashboard');
-                            }
-                            else {
-                                console.log('empty');
-                            }
-                    });
+            };
+            $scope.Login = function (user) {
+                authentication.loginUser(user).then(function (loggedIn) {
+                    if ($window.localStorage.getItem('access_token')) {
+                        $rootScope.isLogged = true;
+                        toastr.success('You have successfully logged in', 'Log in');
+                        $location.path('/dashboard');
 
-                };
-
+                    }
+                });
+            };
         }]);

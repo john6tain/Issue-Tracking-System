@@ -16,9 +16,12 @@ angular.module('issueTrackingSystem.authentication', [])
 
                     return $http(request)
                         .then(function (response) {
-                            console.log(response);
+                            if(response.statusText === "OK"){
+                                $window.localStorage.setItem('access_token',response.data.access_token);
+                                $location.path('/dashboard');
+                            }
                         }, function (error) {
-                            console.log(error);
+                            toastr.error(error);
                         });
                 }
 
@@ -37,21 +40,16 @@ angular.module('issueTrackingSystem.authentication', [])
                         .then(function (response) {
 
                             if(response.statusText === "OK"){
-                                
                                 $window.localStorage.setItem('access_token',response.data.access_token);
                             }
-                            else
-                            {
-                                console.log('Login Failed');
-                            }
                         }, function (error) {
-                            console.log(error);
+                            toastr.error(error.data['error_description'],'Log in');
                         });
                 }
 
                 function logOutUser() {
                 $window.localStorage.clear();
-                    $location.path('/');
+                    
                 }
 
                 return {
