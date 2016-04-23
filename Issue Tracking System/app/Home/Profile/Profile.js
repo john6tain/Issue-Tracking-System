@@ -1,7 +1,4 @@
-'use strict';
-
-angular.module('issueTrackingSystem.projects', ['ngRoute'])
-
+angular.module('issueTrackingSystem.profile', [])
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
             onlyLogged: ['$q', '$window', '$location', function ($q, $window) {
@@ -11,13 +8,14 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
                 return $q.reject('You are not logged in');
             }]
         };
-        $routeProvider.when('/projects', {
-            templateUrl: 'app/Project/All-projects.html',
-            controller: 'ProjectsCtrl',
+        $routeProvider.when('/profile', {
+            templateUrl: 'app/Home/Profile/Profile.html',
+            controller: 'ProfileCtrl',
             resolve:routeCheks.onlyLogged
         });
     }])
-
-    .controller('ProjectsCtrl', ['$scope', function ($scope) {
-        
+    .controller('ProfileCtrl', ['$scope', function ($scope) {
+        $scope.Username = 'John';
+        $scope.isAdmin = false;
     }]);
+

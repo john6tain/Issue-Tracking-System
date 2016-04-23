@@ -22,7 +22,7 @@ angular.module('issueTrackingSystem.dashboard', ['ngRoute'])
     .controller('DashboardCtrl', ['$scope','$window','$http','BASE_URL', function ($scope,$window,$http,BASE_URL) {
         $scope.BigFoot = function () {
             $http.defaults.headers.common.Authorization = 'Bearer '+ $window.localStorage.getItem('access_token');
-            $http.get(BASE_URL+'Issues/2').then(function (feed) {
+            $http.get(BASE_URL+'Users/me').then(function (feed) {
                 console.log(feed);
             });
         }
