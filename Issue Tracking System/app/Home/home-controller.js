@@ -14,14 +14,13 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
 
             $scope.Register = function (user) {
                 authentication.registerUser(user).then(function (message) {
-                    console.log(message);
+                    
                 });
             };
             $scope.Login = function (user) {
                 authentication.loginUser(user).then(function (loggedIn) {
                     if ($window.localStorage.getItem('access_token')) {
-                        $rootScope.isLogged = true;
-                        toastr.success('You have successfully logged in', 'Log in');
+                        
                         $location.path('/dashboard');
 
                     }

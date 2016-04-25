@@ -14,10 +14,22 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
         $routeProvider.when('/projects', {
             templateUrl: 'app/Project/All-projects.html',
             controller: 'ProjectsCtrl',
-            resolve:routeCheks.onlyLogged
+            resolve: routeCheks.onlyLogged
         });
     }])
 
-    .controller('ProjectsCtrl', ['$scope', function ($scope) {
-        
+    .controller('ProjectsCtrl', ['$scope','authentication', function ($scope,authentication) {
+
+        $scope.Projects = function () {
+            var allProjects =[];
+            for(var id = 1; id<11; id++) {
+                authentication.requester('GET','Projects/'+(id)).then(function (data) {
+                    allProjects.push(data.data);
+                });
+
+            }
+            $scope.Projects = allProjects;
+        };
+
+
     }]);

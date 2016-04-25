@@ -3,9 +3,10 @@ angular.module('issueTrackingSystem.authentication', [])
         '$http',
         '$window',
         '$location',
+        '$rootScope',
             'BASE_URL',
 
-            function ($http,$window,$location,BASE_URL) {
+            function ($http,$window,$location,$rootScope,BASE_URL) {
 
                 function registerUser(user) {
                     var request = {
@@ -16,12 +17,14 @@ angular.module('issueTrackingSystem.authentication', [])
 
                     return $http(request)
                         .then(function (response) {
+
                             if(response.statusText === "OK"){
-                                $window.localStorage.setItem('access_token',response.data.access_token);
+                                loginUser(user);
+                                
                                 $location.path('/dashboard');
                             }
                         }, function (error) {
-                            toastr.error(error);
+                            toastr.error(error.data['Message']);
                         });
                 }
 
@@ -41,6 +44,9 @@ angular.module('issueTrackingSystem.authentication', [])
 
                             if(response.statusText === "OK"){
                                 $window.localStorage.setItem('access_token',response.data.access_token);
+                                toastr.success('You have successfully logged in', 'Log in');
+                                $("a[href$='#/']").attr('href','#/dashboard');
+                                $rootScope.isLogged = true;
                             }
                         }, function (error) {
                             toastr.error(error.data['error_description'],'Log in');
@@ -49,12 +55,18 @@ angular.module('issueTrackingSystem.authentication', [])
 
                 function logOutUser() {
                 $window.localStorage.clear();
-                    
+                    $("a[href$='#/dashboard']").attr('href','#/');
                 }
-
+                function requester(type,url) {
+                    if(type === 'GET'){
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + $window.localStorage.getItem('access_token');
+                        return $http.get(BASE_URL + url);
+                    }
+                }
                 return {
                     registerUser: registerUser,
                     loginUser: loginUser,
-                    logOutUser: logOutUser
+                    logOutUser: logOutUser,
+                    requester :requester
                 }
             }]);

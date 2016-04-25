@@ -1,3 +1,8 @@
-<div>
-kur
+<div class="col-md-3">
+    <input class="form-control" type="text" ng-model="Id"/>
+    </br>
+    <button class="form-control" ng-click="Projects(Id)">button</button>
+</div>
+<div ng-repeat="project in Projects">
+    {{project.Name}}
 </div>

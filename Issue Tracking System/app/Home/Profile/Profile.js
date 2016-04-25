@@ -13,9 +13,20 @@ angular.module('issueTrackingSystem.profile', [])
             controller: 'ProfileCtrl',
             resolve:routeCheks.onlyLogged
         });
+        $routeProvider.when('/profile/password',{
+            templateUrl: 'app/Home/Profile/ChangePassword.html',
+            controller: 'ProfileCtrl',
+            resolve:routeCheks.onlyLogged
+        });
     }])
-    .controller('ProfileCtrl', ['$scope', function ($scope) {
-        $scope.Username = 'John';
-        $scope.isAdmin = false;
-    }]);
+    .controller('ProfileCtrl', ['$scope','$window','$location','$http','BASE_URL', function ($scope,$window,$location,$http,BASE_URL) {
+        $scope.ChangePass = function () {
+            $location.path('/profile/password');
+        };
+        $http.defaults.headers.common.Authorization = 'Bearer '+ $window.localStorage.getItem('access_token');
+        $http.get(BASE_URL+'Users/me').then(function (data) {
+            $scope.Username = data.data['Username'];
+            $scope.isAdmin = data.data['isAdmin'];
+        });
 
+    }]);
