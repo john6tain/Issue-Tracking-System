@@ -19,12 +19,32 @@ angular.module('issueTrackingSystem.profile', [])
             resolve:routeCheks.onlyLogged
         });
     }])
-    .controller('ProfileCtrl', ['$scope','$window','$location','$http','BASE_URL', function ($scope,$window,$location,$http,BASE_URL) {
+    .controller('ProfileCtrl', ['$scope','$location','authentication', function ($scope,$location,authentication) {
         $scope.ChangePass = function () {
             $location.path('/profile/password');
         };
-        $http.defaults.headers.common.Authorization = 'Bearer '+ $window.localStorage.getItem('access_token');
-        $http.get(BASE_URL+'Users/me').then(function (data) {
+        $scope.Change = function (user) {
+            authentication.requester('POST','api/Account/ChangePassword',user).then(function (data) {
+                if (data.statusText === "OK") {
+                    toastr.success('Your password was successfully changed');
+                }
+                else
+                {
+                    toastr.error("Something went wrong",'Change Password');
+                }
+
+            }).then(function (error) {
+                console.log(error);
+                if (data.statusText === "OK") {
+                    toastr.success('Your password was successfully changed');
+                }
+                else
+                {
+                    toastr.error("Something went wrong",'Change Password');
+                }
+            });
+        };
+       authentication.requester('GET','Users/me').then(function (data) {
             $scope.Username = data.data['Username'];
             $scope.isAdmin = data.data['isAdmin'];
         });

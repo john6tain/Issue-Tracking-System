@@ -23,7 +23,7 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
         $scope.Projects = function () {
             var allProjects =[];
             for(var id = 1; id<11; id++) {
-                authentication.requester('GET','Projects/'+(id)).then(function (data) {
+                authentication.requester('GET','Projects/'+(id),null).then(function (data) {
                     allProjects.push(data.data);
                 });
 

@@ -57,10 +57,14 @@ angular.module('issueTrackingSystem.authentication', [])
                 $window.localStorage.clear();
                     $("a[href$='#/dashboard']").attr('href','#/');
                 }
-                function requester(type,url) {
+                function requester(type,url,data) {
                     if(type === 'GET'){
                         $http.defaults.headers.common.Authorization = 'Bearer ' + $window.localStorage.getItem('access_token');
                         return $http.get(BASE_URL + url);
+                    }
+                    if(type === 'POST'){
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + $window.localStorage.getItem('access_token');
+                        return $http.post(BASE_URL + url,data);
                     }
                 }
                 return {
