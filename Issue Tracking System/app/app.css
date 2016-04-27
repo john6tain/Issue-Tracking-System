@@ -34,5 +34,7 @@ body{
   content: "";
   padding: 0;
 }
-
+#specs{
+  padding-left: 2em;
+}
 

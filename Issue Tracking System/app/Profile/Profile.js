@@ -9,12 +9,12 @@ angular.module('issueTrackingSystem.profile', [])
             }]
         };
         $routeProvider.when('/profile', {
-            templateUrl: 'app/Home/Profile/Profile.html',
+            templateUrl: 'app/Profile/Profile.html',
             controller: 'ProfileCtrl',
             resolve:routeCheks.onlyLogged
         });
         $routeProvider.when('/profile/password',{
-            templateUrl: 'app/Home/Profile/ChangePassword.html',
+            templateUrl: 'app/Profile/ChangePassword.html',
             controller: 'ProfileCtrl',
             resolve:routeCheks.onlyLogged
         });

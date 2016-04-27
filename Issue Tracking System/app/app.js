@@ -9,17 +9,26 @@ angular.module('issueTrackingSystem', [
         'issueTrackingSystem.dashboard',
         'issueTrackingSystem.navigationBar',
         'issueTrackingSystem.projects',
-        'issueTrackingSystem.profile'
+        'issueTrackingSystem.profile',
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
 
     }])
-    .run(['$rootScope','$location',function ($rootScope,$location) {
-        $rootScope.$on('$routeChangeError', function (ev,current,previous,rejection) {
-            toastr.error('please login first',rejection);
+    .run(['$rootScope', '$location', '$window', function ($rootScope, $location, $window) {
+        if ($window.localStorage.getItem('access_token')) {
+            $rootScope.isLogged = true;
+            $("a[href$='#/']").attr('href','#/dashboard');
+        }
+        else {
+            $rootScope.isLogged = false;
+            $("a[href$='#/']").attr('href','#/');
+        }
+        $rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
+            toastr.error('please login first', rejection);
             $location.path('/');
         });
     }])
+    .value('ID', 1)
     .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/')
     .constant('toastr', toastr);
