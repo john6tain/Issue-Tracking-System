@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.dashboard', ['ngRoute'])
+angular.module('issueTrackingSystem.dashboard', ['ngRoute','ui.bootstrap'])
 
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
@@ -19,12 +19,21 @@ angular.module('issueTrackingSystem.dashboard', ['ngRoute'])
         });
     }])
 
-    .controller('DashboardCtrl', ['$scope','$window','$http','BASE_URL', function ($scope,$window,$http,BASE_URL) {
-       
-        $scope.BigFoot = function () {
-            $http.defaults.headers.common.Authorization = 'Bearer '+ $window.localStorage.getItem('access_token');
-            $http.get(BASE_URL+'Users/me').then(function (feed) {
-                console.log(feed);
+    .controller('DashboardCtrl', ['$scope','authentication', function ($scope,authentication) {
+        $scope.currentPage = 1;
+        function request() {
+            authentication.requester('GET', '/issues/me?orderBy=Project.Name desc, IssueKey&pageSize=5&pageNumber=' + $scope.currentPage, null).then(function (data) {
+               $scope.issues = data.data['Issues'];
+                $scope.totalItems = 10*data.data['TotalPages'];
             });
         }
+        request();
+        $scope.setPage = function (pageNum) {
+            $scope.currentPage = pageNum;
+        };
+
+        $scope.pageChanged = function() {
+            request()
+        };
+
     }]);
