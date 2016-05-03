@@ -12,12 +12,12 @@ angular.module('issueTrackingSystem.projects', ['ngRoute','issueTrackingSystem.a
             }]
         };
         $routeProvider.when('/projects', {
-            templateUrl: 'app/Project/All-projects.html',
+            templateUrl: 'app/Project/allProjects.html',
             controller: 'ProjectsCtrl',
             resolve: routeCheks.onlyLogged
         });
         $routeProvider.when('/projects/:id', {
-            templateUrl: 'app/Project/All-projects.html',
+            templateUrl: 'app/Project/allProjects.html',
             controller: 'ProjectsCtrl',
             resolve: routeCheks.onlyLogged
         });
@@ -28,19 +28,18 @@ angular.module('issueTrackingSystem.projects', ['ngRoute','issueTrackingSystem.a
         var id = $location.path().toString();
         id = id.substr(id.lastIndexOf('/')+1);
         if(id==='projects'){
-            $scope.addProject ='Add-new-project.html';
+            if($scope.isAdmin===true){
+                $scope.addProject ='Add-new-project.html';
+            }
+            else {
+
+            }
         }
         else {
             authentication.requester('GET', 'Projects/'+(id).toString(), null).then(function (data) {
                 $scope.allProjects = data.data;
             });
         }
-
-
-      /* $scope.Projects = function () {
-
-
-        };*/
 
 
     }]);
