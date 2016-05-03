@@ -1,8 +1,8 @@
-<div class="col-md-3">
-    <input class="form-control" type="text" ng-model="Id"/>
-    </br>
-    <button class="form-control" ng-click="Projects(Id)">button</button>
+<div ng-if="addProject!=''">
+    <div add-project></div>
 </div>
-<div ng-repeat="project in Projects">
-    {{project}}
+<div ng-repeat="project in allProjects">
+    <p>
+        <b>{{project}}</b>
+    </p>
 </div>

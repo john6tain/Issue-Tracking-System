@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.projects', ['ngRoute'])
+angular.module('issueTrackingSystem.projects', ['ngRoute','issueTrackingSystem.addProject'])
 
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
@@ -23,14 +23,24 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
         });
     }])
 
-    .controller('ProjectsCtrl', ['$scope', 'authentication', 'ID', function ($scope, authentication, ID) {
-
-        $scope.Projects = function () {
-            authentication.requester('GET', 'Projects/?pageSize={1}&pageNumber={1}&{filter}={"kur"}', null).then(function (data) {
-                console.log(data.data);
+    .controller('ProjectsCtrl', ['$scope', '$location', 'authentication', function ($scope, $location, authentication) {
+        $scope.addProject ='';
+        var id = $location.path().toString();
+        id = id.substr(id.lastIndexOf('/')+1);
+        if(id==='projects'){
+            $scope.addProject ='Add-new-project.html';
+        }
+        else {
+            authentication.requester('GET', 'Projects/'+(id).toString(), null).then(function (data) {
+                $scope.allProjects = data.data;
             });
+        }
 
-        };
+
+      /* $scope.Projects = function () {
+
+
+        };*/
 
 
     }]);

@@ -29,6 +29,6 @@ angular.module('issueTrackingSystem', [
             $location.path('/');
         });
     }])
-    .value('ID', 1)
+    .value('id', 1)
     .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/')
     .constant('toastr', toastr);
