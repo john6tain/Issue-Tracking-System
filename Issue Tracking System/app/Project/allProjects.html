@@ -1,17 +1,18 @@
-
+<!--
 <div ng-if="addProject!=''">
 
     <div add-project></div>
+</div>-->
+<div ng-repeat="project in projects" class="col-md-offset-3">
+    <div>
+        <b>{{project.Name}}</b>
+    </div>
+
+    <div>
+    <b>{{project.Description}}</b>
 </div>
-<div ng-repeat="project in allProjects">
-    <p>
-        <b>{{project}}</b>
-    </p>
 </div>
-<ul class="pagination">
-    <li><a href="#/projects/1">1</a></li>
-    <li><a href="#/projects/2">2</a></li>
-    <li><a href="#/projects/3">3</a></li>
-    <li><a href="#/projects/2">4</a></li>
-    <li><a href="#/projects/5">5</a></li>
-</ul>
+<div class="col-md-offset-3">
+    <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+
+</div>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.projects', ['ngRoute','issueTrackingSystem.addProject'])
+angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.addProject'])
 
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
@@ -24,22 +24,37 @@ angular.module('issueTrackingSystem.projects', ['ngRoute','issueTrackingSystem.a
     }])
 
     .controller('ProjectsCtrl', ['$scope', '$location', 'authentication', function ($scope, $location, authentication) {
-        $scope.addProject ='';
+        $scope.addProject = '';
         var id = $location.path().toString();
-        id = id.substr(id.lastIndexOf('/')+1);
-        if(id==='projects'){
-            if($scope.isAdmin===true){
-                $scope.addProject ='Add-new-project.html';
-            }
-            else {
-
-            }
-        }
-        else {
-            authentication.requester('GET', 'Projects/'+(id).toString(), null).then(function (data) {
-                $scope.allProjects = data.data;
+        id = id.substr(id.lastIndexOf('/') + 1);
+        $scope.currentPage = 1;
+        var username = "admin@softuni.bg";//TODO: need to be real
+        function request() {
+            authentication.requester('GET', 'Projects/?pageSize=5&pageNumber='+$scope.currentPage+'&filter=Lead.Username="' + (username) + '"', null).then(function (data) {
+                $scope.totalItems = 10 * data.data['TotalPages'];
+                $scope.projects = data.data['Projects'];
             });
         }
+
+        request();
+        $scope.setPage = function (pageNum) {
+            $scope.currentPage = pageNum;
+        };
+
+        $scope.pageChanged = function () {
+            request();
+        };
+
+        /* if(id==='projects'){
+
+         }
+         else {
+         authentication.requester('GET', '/'/*+(id).toString()*/
+        /*, null).then(function (data) {
+         //$scope.allProjects =
+         console.log(data.data.length);
+         });
+         }*/
 
 
     }]);
