@@ -11,6 +11,11 @@ angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.
                 return $q.reject('You are not logged in');
             }]
         };
+        $routeProvider.when('/projects/add', {
+            templateUrl: 'app/Project/addNewProject.html',
+            controller: 'ProjectsCtrl',
+             resolve: routeCheks.onlyLogged
+        });
         $routeProvider.when('/projects', {
             templateUrl: 'app/Project/allProjects.html',
             controller: 'ProjectsCtrl',
@@ -21,40 +26,32 @@ angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.
             controller: 'ProjectsCtrl',
             resolve: routeCheks.onlyLogged
         });
+
     }])
 
-    .controller('ProjectsCtrl', ['$scope', '$location', 'authentication', function ($scope, $location, authentication) {
-        $scope.addProject = '';
+    .controller('ProjectsCtrl', ['$scope', '$location','$rootScope', 'authentication', function ($scope, $location,$rootScope,authentication) {
+        $scope.addNewProject = function () {
+            $location.path('/projects/add');
+        };
         var id = $location.path().toString();
         id = id.substr(id.lastIndexOf('/') + 1);
-        $scope.currentPage = 1;
-        var username = "admin@softuni.bg";//TODO: need to be real
+
+        if (!isNaN(id)) {
+            $scope.currentPage = id;
+        }
+        else{
+            $scope.currentPage = 1;
+        }
+        var username = $rootScope.Username;
         function request() {
             authentication.requester('GET', 'Projects/?pageSize=5&pageNumber='+$scope.currentPage+'&filter=Lead.Username="' + (username) + '"', null).then(function (data) {
                 $scope.totalItems = 10 * data.data['TotalPages'];
                 $scope.projects = data.data['Projects'];
             });
         }
-
         request();
-        $scope.setPage = function (pageNum) {
-            $scope.currentPage = pageNum;
-        };
-
         $scope.pageChanged = function () {
             request();
         };
-
-        /* if(id==='projects'){
-
-         }
-         else {
-         authentication.requester('GET', '/'/*+(id).toString()*/
-        /*, null).then(function (data) {
-         //$scope.allProjects =
-         console.log(data.data.length);
-         });
-         }*/
-
 
     }]);

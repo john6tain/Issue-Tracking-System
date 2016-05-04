@@ -1,18 +1,31 @@
 <!--
-<div ng-if="addProject!=''">
-
-    <div add-project></div>
-</div>-->
-<div ng-repeat="project in projects" class="col-md-offset-3">
-    <div>
-        <b>{{project.Name}}</b>
-    </div>
-
-    <div>
-    <b>{{project.Description}}</b>
+-->
+<div class="col-md-offset-3">
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="project in projects">
+            <td>
+                {{project.Name}}
+            </td>
+            <td>
+                {{project.Description}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+</br>
+<div ng-if="isAdmin==true" class="col-md-offset-3">
+    <button class="btn btn-success" ng-click="addNewProject()">Add project</button>
+</div>
+</br>
 </div>
 <div class="col-md-offset-3">
     <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
-
 </div>

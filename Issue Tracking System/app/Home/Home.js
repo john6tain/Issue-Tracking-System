@@ -14,7 +14,9 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
 
             $scope.Register = function (user) {
                 authentication.registerUser(user).then(function (message) {
-                    
+                    if ($window.localStorage.getItem('access_token')) {
+                        $location.path('/dashboard');
+                    }
                 });
             };
             $scope.Login = function (user) {

@@ -47,7 +47,7 @@ angular.module('issueTrackingSystem.profile', [])
             });
         };
         authentication.requester('GET', 'Users/me').then(function (data) {
-            $scope.Username = data.data['Username'];
+            $rootScope.Username = data.data['Username'];
             $rootScope.isAdmin = data.data['isAdmin'];
         });
 

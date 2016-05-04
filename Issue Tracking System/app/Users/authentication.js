@@ -20,11 +20,11 @@ angular.module('issueTrackingSystem.authentication', [])
 
                             if(response.statusText === "OK"){
                                 loginUser(user);
-                                
-                                $location.path('/dashboard');
                             }
                         }, function (error) {
-                            toastr.error(error.data['Message']);
+                            //TODO: this need fix
+                           // toastr.error(error.data['Message']);
+                            console.log(error);
                         });
                 }
 
@@ -47,6 +47,11 @@ angular.module('issueTrackingSystem.authentication', [])
                                 toastr.success('You have successfully logged in', 'Log in');
                                 $("a[href$='#/']").attr('href','#/dashboard');
                                 $rootScope.isLogged = true;
+                                //TODO: this must be in local storage
+                                requester('GET', 'Users/me').then(function (data) {
+                                    $rootScope.Username = data.data['Username'];
+                                    $rootScope.isAdmin = data.data['isAdmin'];
+                                });
                             }
                         }, function (error) {
                             toastr.error(error.data['error_description'],'Log in');
