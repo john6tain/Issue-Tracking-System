@@ -19,7 +19,9 @@ angular.module('issueTrackingSystem.profile', [])
             resolve: routeCheks.onlyLogged
         });
     }])
-    .controller('ProfileCtrl', ['$scope', '$location', '$rootScope', 'authentication', function ($scope, $location, $rootScope, authentication) {
+    .controller('ProfileCtrl', ['$scope', '$location', '$window','authentication', function ($scope, $location, $window,authentication ) {
+        $scope.Username = atob($window.localStorage.getItem('Username'));
+        $scope.isAdmin = atob($window.localStorage.getItem('isAdmin'));
         $scope.ChangePass = function () {
             $location.path('/profile/password');
         };
@@ -46,9 +48,5 @@ angular.module('issueTrackingSystem.profile', [])
 
             });
         };
-        authentication.requester('GET', 'Users/me').then(function (data) {
-            $rootScope.Username = data.data['Username'];
-            $rootScope.isAdmin = data.data['isAdmin'];
-        });
 
     }]);

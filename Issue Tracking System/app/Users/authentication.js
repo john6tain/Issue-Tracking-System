@@ -49,8 +49,9 @@ angular.module('issueTrackingSystem.authentication', [])
                                 $rootScope.isLogged = true;
                                 //TODO: this must be in local storage
                                 requester('GET', 'Users/me').then(function (data) {
-                                    $rootScope.Username = data.data['Username'];
-                                    $rootScope.isAdmin = data.data['isAdmin'];
+                                    $window.localStorage.setItem('UserId',data.data['Id']);
+                                    $window.localStorage.setItem('Username',btoa(data.data['Username']));
+                                    $window.localStorage.setItem('isAdmin',btoa(data.data['isAdmin']));
                                 });
                             }
                         }, function (error) {
