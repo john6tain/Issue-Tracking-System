@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.projects', ['ngRoute',
-        'issueTrackingSystem.getIssues'])
+angular.module('issueTrackingSystem.projects', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
@@ -36,7 +35,7 @@ angular.module('issueTrackingSystem.projects', ['ngRoute',
 
     }])
 
-    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', '$rootScope', 'getIssues', function ($scope, $location, $window, authentication, $rootScope, getIssues) {
+    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', '$rootScope', function ($scope, $location, $window, authentication, $rootScope) {
 
         $scope.addNewProject = function () {
             var users;
