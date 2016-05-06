@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.projects', ['ngRoute'])
+angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.projects.service'])
 
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
@@ -35,8 +35,7 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
 
     }])
 
-    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', '$rootScope', function ($scope, $location, $window, authentication, $rootScope) {
-
+    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', '$rootScope', 'projectsService', function ($scope, $location, $window, authentication, $rootScope, projectsService) {
         $scope.addNewProject = function () {
             var users;
             authentication.requester('GET', 'users').then(function (data) {
@@ -46,8 +45,8 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
                     }
 
                 });
-                $rootScope.users = users;
-                //console.log($rootScope.users);
+                // $rootScope.users = users;
+
             });
             $location.path('/projects/add');
         };
@@ -80,16 +79,13 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
             project.Labels = arrToArrayOfObjects(newProject.Labels.split(','));
             project.Priorities = arrToArrayOfObjects(newProject.Priorities.split(','));
             project.LeadID = $window.localStorage.getItem('UserId');
-            //   console.log(project);
-            /*  authentication.requester('POST', 'projects', project).then(function (data) {
-             toastr.success('Project added');
-             }, function (error) {
-             toastr.error('Project Not added');
-             });*/
+            projectsService.addProject(project);
         };
         var id = $location.path().toString();
         id = id.substr(id.lastIndexOf('/') + 1);
-        $scope.Id = id;
+        authentication.requester('GET', 'Projects/'+id.toString(), null).then(function (data) {
+            $scope.project = data.data;
+        });
 
         $scope.currentPage = 1;
         var username = atob($window.localStorage.getItem('Username'));

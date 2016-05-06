@@ -1,1 +1,34 @@
-<div>{{Id}}</div>
+<div class="col-md-offset-2">
+        <table style="width: 80%">
+            <thead>
+            <tr>
+                <td><b>Name</b></td>
+                <td><b>ProjectKey</b></td>
+                <td><b>Description</b></td>
+                <td><b>Labels</b></td>
+                <td><b>Priorities</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{project.Name}}</td>
+                <td>{{project.ProjectKey}}</td>
+                <td>{{project.Description}}</td>
+                <td>
+                    <div ng-repeat="label in project.Labels">
+                        {{label.Name}}
+                    </div>
+                </td>
+                <td>
+                    <div ng-repeat="priority in project.Priorities">
+                        {{priority.Name}}
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+</div>
+<div ng-if="isAdmin">
+    <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
+</div>
