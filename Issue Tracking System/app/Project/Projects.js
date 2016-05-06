@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('issueTrackingSystem.projects', ['ngRoute'])
+angular.module('issueTrackingSystem.projects', ['ngRoute',
+        'issueTrackingSystem.getIssues'])
 
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
@@ -10,12 +11,12 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
                 }
                 return $q.reject('You are not logged in');
             }]/*,
-            onlyAdmin: ['$q', '$window', '$location', function ($q, $window) {
-                if ($window.localStorage.getItem('isAdmin') === atob('true')) {
-                    return $q.when(true);
-                }
-                return $q.reject('You are not Admin');
-            }]*/
+             onlyAdmin: ['$q', '$window', '$location', function ($q, $window) {
+             if ($window.localStorage.getItem('isAdmin') === atob('true')) {
+             return $q.when(true);
+             }
+             return $q.reject('You are not Admin');
+             }]*/
         };
         $routeProvider.when('/projects/add', {
             templateUrl: 'app/Project/addNewProject.html',
@@ -28,36 +29,74 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
             resolve: routeCheks.onlyLogged
         });
         $routeProvider.when('/projects/:id', {
-            templateUrl: 'app/Project/allProjects.html',
+            templateUrl: 'app/Project/project.html',
             controller: 'ProjectsCtrl',
             resolve: routeCheks.onlyLogged
         });
 
     }])
 
-    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', function ($scope, $location, $window, authentication) {
+    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', '$rootScope', 'getIssues', function ($scope, $location, $window, authentication, $rootScope, getIssues) {
+
         $scope.addNewProject = function () {
+            var users;
+            authentication.requester('GET', 'users').then(function (data) {
+                users = data.data.filter(function (user) {
+                    if (user['isAdmin'] === true) {
+                        return user;
+                    }
+
+                });
+                $rootScope.users = users;
+                //console.log($rootScope.users);
+            });
             $location.path('/projects/add');
         };
-        $scope.addProject = function (newProject) {
-            console.log(newProject);
-          /*authentication.requester('POST','projects',newProject).then(function (data) {
 
-          });*/
+        $scope.addProject = function (newProject) {
+
+            var project = {};
+
+            function arrToArrayOfObjects(arr) {
+                var i, j = 0,
+                    obj = null,
+                    output = [];
+
+                for (i = 0; i < arr.length; i++) {
+                    obj = {};
+
+                    for (j = 0; j < arr.length; j++) {
+                        obj['Id'] = i + 1;
+                        obj['Name'] = arr[i];
+                    }
+
+                    output.push(obj);
+                }
+                return output;
+            }
+
+            project.Name = newProject.Name;
+            project.Description = newProject.Description;
+            project.ProjectKey = newProject.ProjectKey;
+            project.Labels = arrToArrayOfObjects(newProject.Labels.split(','));
+            project.Priorities = arrToArrayOfObjects(newProject.Priorities.split(','));
+            project.LeadID = $window.localStorage.getItem('UserId');
+            //   console.log(project);
+            /*  authentication.requester('POST', 'projects', project).then(function (data) {
+             toastr.success('Project added');
+             }, function (error) {
+             toastr.error('Project Not added');
+             });*/
         };
         var id = $location.path().toString();
         id = id.substr(id.lastIndexOf('/') + 1);
+        $scope.Id = id;
 
-        if (!isNaN(id)) {
-            $scope.currentPage = id;
-        }
-        else {
-            $scope.currentPage = 1;
-        }
+        $scope.currentPage = 1;
         var username = atob($window.localStorage.getItem('Username'));
-        $scope.isAdmin = atob($window.localStorage.getItem('isAdmin'))=='true';
+        $scope.isAdmin = atob($window.localStorage.getItem('isAdmin')) == 'true';
         function request() {
-            authentication.requester('GET', 'Projects/?pageSize=5&pageNumber=' + $scope.currentPage + '&filter=Lead.Username="' + (username) + '"', null).then(function (data) {
+            authentication.requester('GET', 'Projects/?pageSize=10&pageNumber=' + $scope.currentPage + '&filter=Lead.Username="' + username + '"', null).then(function (data) {
                 $scope.totalItems = 10 * data.data['TotalPages'];
                 $scope.projects = data.data['Projects'];
             });

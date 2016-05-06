@@ -1,6 +1,7 @@
-<!--
--->
-<div class="col-md-offset-3">
+<div class="col-md-offset-4">
+    <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+</div>
+<div class="col-md-offset-1">
     <table style="width: 100%">
         <thead>
         <tr>
@@ -11,7 +12,7 @@
         <tbody>
         <tr ng-repeat="project in projects">
             <td>
-                {{project.Name}}
+                <a ng-href="#/projects/{{project.Id}}" >{{project.Name}}</a>
             </td>
             <td>
                 {{project.Description}}
@@ -26,6 +27,4 @@
 </div>
 </br>
 </div>
-<div class="col-md-offset-3">
-    <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
-</div>
+

@@ -13,19 +13,10 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
         function ($scope, $rootScope, $location, $window, authentication) {
 
             $scope.Register = function (user) {
-                authentication.registerUser(user).then(function (message) {
-                    if ($window.localStorage.getItem('access_token')) {
-                        $location.path('/dashboard');
-                    }
-                });
+                authentication.registerUser(user);
+
             };
             $scope.Login = function (user) {
-                authentication.loginUser(user).then(function (loggedIn) {
-                    if ($window.localStorage.getItem('access_token')) {
-                        
-                        $location.path('/dashboard');
-
-                    }
-                });
+                authentication.loginUser(user);
             };
         }]);
