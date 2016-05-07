@@ -67,9 +67,13 @@ angular.module('issueTrackingSystem.authentication', [])
                     $http.defaults.headers.common.Authorization = 'Bearer ' + $window.localStorage.getItem('access_token');
                     return $http.get(BASE_URL + url);
                 }
-                if (type === 'POST') {
+               else if (type === 'POST') {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + $window.localStorage.getItem('access_token');
                     return $http.post(BASE_URL + url, data);
+                }
+               else if (type === 'PUT') {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + $window.localStorage.getItem('access_token');
+                    return $http.put(BASE_URL + url, data);
                 }
             }
 

@@ -1,3 +1,8 @@
+<div ng-if="isAdmin" class="col-md-offset-2">
+    <button class="btn btn-default btn-success" ng-click="editProject()">Edit Project</button>
+    <button class="btn btn-default btn-info">Add issue</button>
+</div>
+<br>
 <div class="col-md-offset-2">
         <table style="width: 80%">
             <thead>
@@ -7,6 +12,7 @@
                 <td><b>Description</b></td>
                 <td><b>Labels</b></td>
                 <td><b>Priorities</b></td>
+                <td>Project Leader</td>
             </tr>
             </thead>
             <tbody>
@@ -24,11 +30,13 @@
                         {{priority.Name}}
                     </div>
                 </td>
+                <td>
+                    {{project.Lead.Username}}
+                </td>
             </tr>
 
             </tbody>
         </table>
 </div>
-<div ng-if="isAdmin">
-    <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
-</div>
+
+

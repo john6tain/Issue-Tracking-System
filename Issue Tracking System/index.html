@@ -17,8 +17,10 @@
     <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href='app/bower_components/bootstrap/dist/css/bootstrap.css'>
     <link rel="stylesheet" href="app/bower_components/toastr/toastr.css" />
+    <link rel='stylesheet' href='app/bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
     <link rel="stylesheet" href="app/app.css">
     <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -31,7 +33,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/">Issue Tracking System</a>
+            <a class="navbar-brand" href="#/">&nbsp;&nbsp;Issue Tracking System</a>
             <div ng-if="isLogged"nav-bar class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ></div>
         </div>
 
@@ -49,6 +51,7 @@
 <script src="app/bower_components/angular/angular.js"></script>
 <script src="app/bower_components/angular-route/angular-route.js"></script>
 <script src="app/bower_components/toastr/toastr.js"></script>
+<script src='app/bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
 <script src="app/bower_components/pagination/ui-bootstrap-custom-1.3.2.js"></script>
 <script src="app/bower_components/pagination/ui-bootstrap-custom-tpls-1.3.2.js"></script>
 <script src="app/app.js"></script>
@@ -60,6 +63,7 @@
 <script src="app/Project/Projects.js"></script>
 <script src="app/Profile/Profile.js"></script>
 <script src="app/Project/ProjectService.js"></script>
+<script src="app/Users/getUsers.js"></script>
 </body>
 </html>
 

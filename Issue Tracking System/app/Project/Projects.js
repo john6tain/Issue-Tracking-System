@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.projects.service'])
+angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.projects.service', 'issueTrackingSystem.getUsers'])
 
     .config(['$routeProvider', function ($routeProvider) {
         var routeCheks = {
@@ -17,6 +17,11 @@ angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.
              return $q.reject('You are not Admin');
              }]*/
         };
+        $routeProvider.when('/projects/:id/edit', {
+            templateUrl: 'app/Project/editProject.html',
+            controller: 'ProjectsCtrl',
+            resolve: routeCheks.onlyLogged
+        });
         $routeProvider.when('/projects/add', {
             templateUrl: 'app/Project/addNewProject.html',
             controller: 'ProjectsCtrl',
@@ -35,23 +40,14 @@ angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.
 
     }])
 
-    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', '$rootScope', 'projectsService', function ($scope, $location, $window, authentication, $rootScope, projectsService) {
+    .controller('ProjectsCtrl', ['$scope', '$location', '$window', 'authentication', '$rootScope', 'projectsService', 'getUsers', function ($scope, $location, $window, authentication, $rootScope, projectsService, getUsers) {
         $scope.addNewProject = function () {
-            var users;
-            authentication.requester('GET', 'users').then(function (data) {
-                users = data.data.filter(function (user) {
-                    if (user['isAdmin'] === true) {
-                        return user;
-                    }
 
-                });
-                // $rootScope.users = users;
-
-            });
+            getUsers.getUsers(true);
             $location.path('/projects/add');
         };
 
-        $scope.addProject = function (newProject) {
+        $scope.addOrEditProject = function (newProject, addOrEdit) {
 
             var project = {};
 
@@ -78,15 +74,36 @@ angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.
             project.ProjectKey = newProject.ProjectKey;
             project.Labels = arrToArrayOfObjects(newProject.Labels.split(','));
             project.Priorities = arrToArrayOfObjects(newProject.Priorities.split(','));
-            project.LeadID = $window.localStorage.getItem('UserId');
-            projectsService.addProject(project);
-        };
-        var id = $location.path().toString();
-        id = id.substr(id.lastIndexOf('/') + 1);
-        authentication.requester('GET', 'Projects/'+id.toString(), null).then(function (data) {
-            $scope.project = data.data;
-        });
+            project.LeadID = $rootScope.users.filter(
+                function (user) {
+                    if (user.Username == newProject.Leader) {
+                        return user;
+                    }
+                })[0].Id;
+            if (addOrEdit) {
+                projectsService.addProject(project);
 
+            }
+            else {
+                projectsService.editProject(project, id);
+            }
+
+        };
+
+        var id = $location.path().toString();
+        if (id.match(/\d+/) != null) {
+            id = id.match(/\d+/)[0];
+
+            authentication.requester('GET', 'Projects/' + id.toString(), null).then(function (data) {
+                $rootScope.project = data.data;
+                //$scope.isLead = data.data.Lead.Id === $window.localStorage.getItem('UserId');
+            });
+        }
+        $scope.editProject = function () {
+            getUsers.getUsers(true);
+            $location.path('projects/' + id.toString() + '/edit');
+
+        };
         $scope.currentPage = 1;
         var username = atob($window.localStorage.getItem('Username'));
         $scope.isAdmin = atob($window.localStorage.getItem('isAdmin')) == 'true';
