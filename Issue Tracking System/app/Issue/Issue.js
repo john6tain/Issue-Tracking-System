@@ -15,9 +15,14 @@ angular.module('issueTrackingSystem.issues',[])
         controller: 'IssueCtrl',
         resolve: routeCheks.onlyLogged
     });
+    $routeProvider.when('/projects/:id/add-issue', {
+        templateUrl: 'app/Issue/addIssue.html',
+        controller: 'IssueCtrl',
+        resolve: routeCheks.onlyLogged
+    });
 }])
 
-    .controller('IssueCtrl', ['$scope','$location', 'authentication', function ($scope,$location,authentication) {
+    .controller('IssueCtrl', ['$scope','$location','$rootScope','authentication', function ($scope,$location,$rootScope,authentication) {
         var id = $location.path().toString();
         if (id.match(/\d+/) != null) {
             id = id.match(/\d+/)[0];
@@ -25,4 +30,45 @@ angular.module('issueTrackingSystem.issues',[])
                 $scope.issue = data.data;
             });
         }
+        $scope.addIssue = function (issue) {
+            var issues = {};
+
+            function arrToArrayOfObjects(arr) {
+                var i, j = 0,
+                    obj = null,
+                    output = [];
+
+                for (i = 0; i < arr.length; i++) {
+                    obj = {};
+
+                    for (j = 0; j < arr.length; j++) {
+                        obj['Id'] = i + 1;
+                        obj['Name'] = arr[i];
+                    }
+
+                    output.push(obj);
+                }
+                return output;
+            }
+
+            issues.Title = issue.Title;
+            issues.Description = issue.Description;
+            issues.DueDate = issue.DueDate;
+            issues.ProjectId = id;
+
+            issues.AssigneeId = $rootScope.users.filter(
+                function (user) {
+                    if (user.Username == issue.ass) {
+                        return user;
+                    }
+                })[0].Id;
+            issues.PriorityId = 1;
+            issues.Labels = arrToArrayOfObjects(issue.Labels.split(','));
+            authentication.requester('POST','/issues/',issues).then(function (data) {
+                console.log(data);
+            },function (error) {
+                console.log(error);
+            })
+
+        };
     }]);

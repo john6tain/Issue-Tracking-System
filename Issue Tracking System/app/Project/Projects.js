@@ -99,6 +99,10 @@ angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.
                 //$scope.isLead = data.data.Lead.Id === $window.localStorage.getItem('UserId');
             });
         }
+        $scope.addIssue = function () {
+            getUsers.getUsers(true);
+            $location.path('projects/'+id.toString()+'/add-issue');
+        };
         $scope.editProject = function () {
             getUsers.getUsers(true);
             $location.path('projects/' + id.toString() + '/edit');

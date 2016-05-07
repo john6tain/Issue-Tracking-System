@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="col-md-offset-4" style="width: 20em">
+    <h1 style="margin-top: 0"> Add new Issue</h1>
+    <form>
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input type="text" class="form-control" id="Title" placeholder="Issue Title" ng-model="addedIssue.Title">
+        </div>
+        <div class="form-group">
+            <label>Assignee</label>
+            <select class="form-control"  ng-controller="ProjectsCtrl"  ng-model="addedIssue.ass">
+                <option ng-repeat="user in users">{{user.Username}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Project">Project</label>
+            <select class="form-control" id="Project" ng-controller="ProjectsCtrl" ng-model="addedIssue.Project">
+                <option  ng-repeat="pro in projects">{{pro.Name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="IssueKey">Issue Key</label>
+            <input type="text" class="form-control" id="IssueKey" placeholder="Issue Key" ng-model="addedIssue.IssueKey">
+        </div>
+        <div class="form-group">
+            <label for="Priority">Priority</label>
+            <select class="form-control" id="Priority"ng-controller="ProjectsCtrl" ng-model="addedIssue.Priority">
+                <option  ng-repeat="pro in project.Priorities">{{pro.Name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="DueDate">Due Date</label>
+            <input type="date" class="form-control" id="DueDate" placeholder="dd/mm/yyyy" ng-model="addedIssue.DueDate">
+        </div>
+        <div class="form-group">
+            <label for="Labels">Labels (comma separated)</label>
+            <input type="text" class="form-control" id="Labels" placeholder="Labels"  ng-model="addedIssue.Labels">
+            <br>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea class="form-control" placeholder="Description" id="Description" ng-model="addedIssue.Description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success" ng-controller="IssueCtrl" ng-click="addIssue(addedIssue)">Add Issue</button>
+    </form>
+        </div>
+</div>
