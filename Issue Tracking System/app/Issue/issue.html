@@ -1,0 +1,58 @@
+<div class="container">
+
+    <div>
+
+        <h1>Issue</h1>
+
+        <div>
+            <b>Title&nbsp;:&nbsp;</b>
+            <strong>{{issue.Title}}</strong>
+        </div>
+        <div>
+            <b>IssueKey&nbsp;:&nbsp;</b>
+            <strong> {{issue.IssueKey}}</strong>
+        </div>
+        <div>
+            <b>Description&nbsp;:&nbsp;</b>
+            <strong>{{issue.Description}}</strong>
+        </div>
+        <div>
+            <b>Assignee&nbsp;:&nbsp;</b>
+            <strong> {{issue.Assignee.Username}}</strong>
+        </div>
+        <div>DueDate : <strong>{{issue.DueDate}}</strong></div>
+        <div>
+            <b>Status&nbsp;:&nbsp;</b>
+            <strong>{{issue.Status.Name}} </strong>
+        </div>
+        <div>
+            <b>Project&nbsp;:&nbsp;</b>
+            <strong> {{issue.Project.Name}} </strong>
+        </div>
+        <div>
+            <b> Author&nbsp;:&nbsp;</b>
+            <strong>{{issue.Author.Username}}</strong>
+        </div>
+        <div>Available Statuses&nbsp;:&nbsp
+            <div class="col-md-offset-1" ng-repeat="status in issue.AvailableStatuses">
+                <button class="btn-danger">{{status.Name}}</button>
+                <br>
+            </div>
+        </div>
+        <div>
+            <b>Priorities&nbsp;:&nbsp;</b>
+            <div ng-repeat="priority in issue.Priority.Name">
+                <strong> {{priority}}</strong>
+            </div>
+        </div>
+        <div><b>Labels&nbsp;:&nbsp;</b>
+
+            <div ng-repeat="label in issue.Labels.Name">
+                <strong>{{label}}</strong>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>

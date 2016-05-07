@@ -37,4 +37,10 @@ body{
 #specs{
   padding-left: 2em;
 }
+a:hover{
+  color: white;
+}
+strong{
+  color:yellow;
+}
 

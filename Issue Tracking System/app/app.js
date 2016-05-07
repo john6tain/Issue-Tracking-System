@@ -10,11 +10,12 @@ angular.module('issueTrackingSystem', [
         'issueTrackingSystem.dashboard',
         'issueTrackingSystem.navigationBar',
         'issueTrackingSystem.projects',
-        'issueTrackingSystem.profile'
+        'issueTrackingSystem.profile',
+        'issueTrackingSystem.issues'
 
     ])
-    .config(['$routeProvider','cfpLoadingBarProvider', function ($routeProvider,cfpLoadingBarProvider) {
-        cfpLoadingBarProvider.includeSpinner =true;
+    .config(['$routeProvider', 'cfpLoadingBarProvider', function ($routeProvider, cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = true;
         $routeProvider.otherwise({redirectTo: '/'});
 
     }])

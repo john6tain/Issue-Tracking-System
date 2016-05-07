@@ -1,5 +1,6 @@
 <div class="container">
-    <div class="col-md-offset-1" >
+
+    <div class="col-md-offset-1">
         <h1>Dashboard</h1>
         <table style="width: 100%">
             <thead>
@@ -12,16 +13,21 @@
             </thead>
             <tbody>
             <tr ng-repeat="issue in issues |orderBy : '-DueDate'">
-                <td>{{issue.Title}}</td>
+                <td><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
                 <td>{{issue.Description}}</td>
-                <td>{{issue.Project['Name']}}</td>
+                <td><a href="#/projects/{{issue.Project['Id']}}">{{issue.Project['Name']}}</a></td>
                 <td>{{issue.DueDate}}</td>
             </tr>
             </tbody>
         </table>
-    <div class="col-md-offset-2">
-        <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+        <div class="col-md-offset-2">
+            <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
 
+        </div>
+        <div ng-if="isAdmin" >
+            <button class="btn btn-sm btn-success" ng-controller="ProjectsCtrl" ng-click="addNewProject()">Add New Project</button>
+            <button class="btn btn-sm btn-info">Add New Issue</button>
+        </div>
     </div>
-</div>
+
 </div>
