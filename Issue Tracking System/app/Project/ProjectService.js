@@ -1,3 +1,4 @@
+'use strict';
 angular.module('issueTrackingSystem.projects.service', [])
     .factory('projectsService', ['authentication', '$location',
         function (authentication, $location) {

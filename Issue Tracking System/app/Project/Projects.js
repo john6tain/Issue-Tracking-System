@@ -9,13 +9,7 @@ angular.module('issueTrackingSystem.projects', ['ngRoute', 'issueTrackingSystem.
                     return $q.when(true);
                 }
                 return $q.reject('You are not logged in');
-            }]/*,
-             onlyAdmin: ['$q', '$window', '$location', function ($q, $window) {
-             if ($window.localStorage.getItem('isAdmin') === atob('true')) {
-             return $q.when(true);
-             }
-             return $q.reject('You are not Admin');
-             }]*/
+            }]
         };
         $routeProvider.when('/projects/:id/edit', {
             templateUrl: 'app/Project/editProject.html',
